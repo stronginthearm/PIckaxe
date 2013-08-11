@@ -1,0 +1,66 @@
+# PIckaxe 
+
+### What Is PIckaxe?
+PIckaxe is a specialized Linux distribution for the Raspberry PI for bitcoin mining. It is based on the [Raspbian](http://www.raspbian.org) distribution which is itself based on Debian. MinePeon already exists for those who prefer Arch Linux. PIckaxe is the Raspbian/Debian version.
+
+PIckaxe has an attractive custom web interface with a high update frequency.  The interface updates mining statistics every two seconds to give you the most up-to-date information on your miners. No default donation options are set as in MinePeon. It has been tested with both Block Erupters and BFL hardware. See screenshots below.
+
+Feature overview:
+* Two second update interval
+* Cookie-based login for increased security
+* Set both Primary and Failover pools
+* Automatically restarts mining on boot if pool credentials are set
+* Option to connect to mining pool(s) via Tor
+* Script to install from default Raspbian Wheezy image provided
+* Disk image available that fits on 2GB SD card and 266MB zipped download size
+* Disk image will automatically regenerate SSH keys on first boot so they are unique
+* No default donation options
+* Tested on Block Erupters (Icarus) and BFL hardware
+* Open Source under GPLv2
+* Uses bfgminer 3.1.4 for mining
+* Based on Raspbian Wheezy July 26th 2013 release
+
+### Installation
+
+There are two ways to install PIckaxe. Option one is to write the PIckaxe image directly to an SD card. Option two is to run a setup script on an existing Raspbian Wheezy installation.
+
+##### Installing The Disk Image
+
+I have uploaded the PIckaxe install image to my google drive [here](https://docs.google.com/file/d/0B_Hgpz1D7fJ1RnpVWXliWHplLXc). The first step is to download it and extract this file. It is tarred and compressed with bzip2. The compressed download is 266MB. Extracted it is 1.8GB.
+
+Install this image to an SD card just as you would any other image for the Raspberry PI. An sdcard installation guide can be found [here](http://elinux.org/RPi_Easy_SD_Card_Setup). On linux you would use the dd tool with a command something like:
+
+		dd bs=1M if=rpi-pickaxe-v0.01.img of=/dev/[YOUR_SDCARD_DRIVE]
+
+
+Once the disk image has been copied to your sdcard put it in your raspberry pi and boot. The default SSH username and password have not been changed from a default raspbian install. You can login via SSH as "pi" and password "raspberry".  The hostname on your network has been changed from "raspberrypi" to "pickaxe". A shell script will run the first time you boot that automatically generates new and unique SSH keys for your host. This ensures your SSH sessions will be secure and you do not need to do this manually.
+
+After this you should be able to access the PIckaxe web interface provided you have connected your raspberry pi to your network.
+
+
+##### Installing Using The setup.sh Script
+
+Copy the entire contents of the pickaxe repository to your raspberry pi which has raspbian wheezy installed.  SSH into your raspberry pi as a user that has sudo priviledges.  By default the pi user has these priviledges. Then run:
+
+		sudo ./setup.sh
+
+This script will take half an hour to an hour to run depending on the speed of your network connection. Once the script is finished you should be able to connect to the PIckaxe web interface. Note that this script automatically regenerates your raspberry pi SSH keys as this is a step that should always be done after a fresh installation of Raspbian to ensure your security. The hostname is also changed to pickaxe.
+
+
+### Screenshots And Usage Instructions
+
+Configuration of the web interface should be intuitive and straightforward. Instead of describing how to configure the web interface here, please see the series of configuration screenshots I have [uploaded to Imgur](http://imgur.com/a/B9FyJ). These show the progression of configuring and using PIckaxe. These same screenshots are included in the screenshots directory of this repository.
+
+
+### DISCLAIMER
+
+I cannot guarantee that this software is bug free or that you should be trusting your expensive mining hardware to it. Use at your own risk. The most I can say is that I trust it enough to use with my own expensive mining hardware. Note the screenshot and photograph of two BFL Little Singles which as of today (August 11 2013) are quite valuable. On the other hand I'm sure that hardware will be about as effective as CPU mining is today in about a year given current trends ;-)
+
+
+### Donations Are Welcome
+
+Note that no default pools are configured. I strongly dislike the idea of having default workers configured to mine for donations to me as is the case in MinePeon. That seems rather dishonest and sketchy. 
+
+There is a donation address at the bottom of the page if you do want to donate. Despite my dislike of the default donation configuration found in MinePeon donations are very welcome. I just feel that tricking people into giving is rather unethical. Send donations to: 1M9GY1qNKf6Fo1HRUyFxnyH5MuztMbPBg3
+
+
