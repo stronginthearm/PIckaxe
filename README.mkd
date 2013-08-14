@@ -28,6 +28,8 @@ There are two ways to install PIckaxe. Option one is to write the PIckaxe image 
 
 I have uploaded the PIckaxe install image to my google drive [here](https://docs.google.com/file/d/0B_Hgpz1D7fJ1RnpVWXliWHplLXc). The first step is to download it and extract this file. It is tarred and compressed with bzip2. The compressed download is 266MB. Extracted it is 1.8GB.
 
+The MD5 checksum of the extracted image should be 901a09fb0166f9ba8bcc3d1efc5900a3
+
 Install this image to an SD card just as you would any other image for the Raspberry PI. An sdcard installation guide can be found [here](http://elinux.org/RPi_Easy_SD_Card_Setup). On linux you would use the dd tool with a command something like:
 
 		dd bs=1M if=rpi-pickaxe-v0.01.img of=/dev/[YOUR_SDCARD_DRIVE]
