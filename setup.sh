@@ -34,7 +34,7 @@ done
 
 
 #set hostname to PIckaxe
-cat 'PIckaxe' >  /etc/hostname
+echo "PIckaxe" > /etc/hostname
 echo "PIckaxe" > /proc/sys/kernel/hostname   2>/dev/null
 
 
