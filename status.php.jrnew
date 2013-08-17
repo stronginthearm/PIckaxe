@@ -259,7 +259,7 @@ function generateStatusHtml($summary, $devs)
 		$status_html = $status_html . "\t\t\t\t\t</table>\n";
 		$status_html = $status_html . "\t\t\t\t</div>\n";
 #####For learning:
-##print_r(array_keys($chip));
+print_r(array_keys($chip));
 
 	}
 
