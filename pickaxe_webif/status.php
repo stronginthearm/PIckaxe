@@ -50,8 +50,14 @@ function getChipRowStr($chip, $is_single_chip_dev, $have_multiple_chip_devs, $ha
 	$hwerrors = $chip['Hardware Errors'];
 	$accepted = $chip['Accepted'];
 	$totalshares = $accepted+$rejected+$hwerrors;
-	$pcthwerrors = round($hwerrors/$totalshares*100, 2);
-	$pctrejected = round($rejected/$totalshares*100, 2);
+	if(isset($hwerrors) && isset($totalshares))
+	{
+		$pcthwerrors = round($hwerrors/$totalshares*100, 2);
+	}
+	if(isset($rejected) && isset($totalshares) )
+	{
+		$pctrejected = round($rejected/$totalshares*100, 2);
+	}
 
 	$result = "";
 	$result = $result . "\t\t\t\t\t\t<tr class='devtr'>\n";
@@ -70,8 +76,16 @@ function getChipRowStr($chip, $is_single_chip_dev, $have_multiple_chip_devs, $ha
 	$result = $result . "\t\t\t\t\t\t\t<td>$last_difficulty</td>\n";
 	$result = $result . "\t\t\t\t\t\t\t<td>$totalshares</td>\n";
 #	$result = $result . "\t\t\t\t\t\t\t<td>$accepted</td>\n";
-	$result = $result . "\t\t\t\t\t\t\t<td>$rejected ($pctrejected)</td>\n";
-	$result = $result . "\t\t\t\t\t\t\t<td>$hwerrors ($pcthwerrors)</td>\n";
+	if (isset($pctrejected) && isset($pcthwerrors)) 
+	{
+		$result = $result . "\t\t\t\t\t\t\t<td>$rejected ($pctrejected)</td>\n";
+		$result = $result . "\t\t\t\t\t\t\t<td>$hwerrors ($pcthwerrors)</td>\n";
+        }
+	else
+	{
+		$result = $result . "\t\t\t\t\t\t\t<td>$rejected</td>\n";
+		$result = $result . "\t\t\t\t\t\t\t<td>$hwerrors</td>\n";
+	}
 
 	if($have_device_with_temp)
 	{
