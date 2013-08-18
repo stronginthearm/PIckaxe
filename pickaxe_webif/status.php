@@ -46,7 +46,18 @@ function getChipRowStr($chip, $is_single_chip_dev, $have_multiple_chip_devs, $ha
 	$last_difficulty  =  $chip['Last Share Difficulty'];
 	if($last_difficulty != null && $last_difficulty != "") { $last_difficulty = "" . intval($last_difficulty); }
 	$temp = isset($chip['Temperature']) ? $chip['Temperature']. "&deg;" : "N/A";
-
+	$rejected = $chip['Rejected'];
+	$hwerrors = $chip['Hardware Errors'];
+	$accepted = $chip['Accepted'];
+	$totalshares = $accepted+$rejected+$hwerrors;
+	if(isset($hwerrors) && isset($totalshares))
+	{
+		$pcthwerrors = round($hwerrors/$totalshares*100, 2);
+	}
+	if(isset($rejected) && isset($totalshares) )
+	{
+		$pctrejected = round($rejected/$totalshares*100, 2);
+	}
 
 	$result = "";
 	$result = $result . "\t\t\t\t\t\t<tr class='devtr'>\n";
@@ -63,6 +74,19 @@ function getChipRowStr($chip, $is_single_chip_dev, $have_multiple_chip_devs, $ha
 	$result = $result . "\t\t\t\t\t\t\t<td>$last_share</td>\n";
 	$result = $result . "\t\t\t\t\t\t\t<td>$last_valid_work</td>\n";
 	$result = $result . "\t\t\t\t\t\t\t<td>$last_difficulty</td>\n";
+	$result = $result . "\t\t\t\t\t\t\t<td>$totalshares</td>\n";
+#	$result = $result . "\t\t\t\t\t\t\t<td>$accepted</td>\n";
+	if (isset($pctrejected) && isset($pcthwerrors)) 
+	{
+		$result = $result . "\t\t\t\t\t\t\t<td>$rejected ($pctrejected)</td>\n";
+		$result = $result . "\t\t\t\t\t\t\t<td>$hwerrors ($pcthwerrors)</td>\n";
+        }
+	else
+	{
+		$result = $result . "\t\t\t\t\t\t\t<td>$rejected</td>\n";
+		$result = $result . "\t\t\t\t\t\t\t<td>$hwerrors</td>\n";
+	}
+
 	if($have_device_with_temp)
 	{
 		$result = $result . "\t\t\t\t\t\t\t<td>$temp</td>\n";
@@ -227,7 +251,12 @@ function generateStatusHtml($summary, $devs)
 		$status_html = $status_html . "\t\t\t\t\t\t\t<td class='devth'>Pool</td>\n";
 		$status_html = $status_html . "\t\t\t\t\t\t\t<td class='devth'>Last Share</td>\n";
 		$status_html = $status_html . "\t\t\t\t\t\t\t<td class='devth'>Last Valid Work</td>\n";
-		$status_html = $status_html . "\t\t\t\t\t\t\t<td class='devth'>Last Difficulty</td>\n";
+		$status_html = $status_html . "\t\t\t\t\t\t\t<td class='devth'>Last Diff.</td>\n";
+		$status_html = $status_html . "\t\t\t\t\t\t\t<td class='devth'>Total Shares</td>\n";
+#		$status_html = $status_html . "\t\t\t\t\t\t\t<td class='devth'>Accepted</td>\n";
+		$status_html = $status_html . "\t\t\t\t\t\t\t<td class='devth'>Rejected (%)</td>\n";
+		$status_html = $status_html . "\t\t\t\t\t\t\t<td class='devth'>HWErrors (%)</td>\n";
+
 		if($have_device_with_temp)
 		{
 			$status_html = $status_html . "\t\t\t\t\t\t\t<td class='devth'>Temperature</td>\n";
@@ -243,6 +272,8 @@ function generateStatusHtml($summary, $devs)
 		}
 		$status_html = $status_html . "\t\t\t\t\t</table>\n";
 		$status_html = $status_html . "\t\t\t\t</div>\n";
+#####For learning:
+##print_r(array_keys($chip));
 
 	}
 
